@@ -28,5 +28,4 @@ public class JokeController {
                 .status(HttpStatus.OK)
                 .body(new JokeResponseDTO(savedEntry));
     }
-
 }

@@ -14,5 +14,4 @@ public class TestingPocApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TestingPocApplication.class, args);
 	}
-
 }

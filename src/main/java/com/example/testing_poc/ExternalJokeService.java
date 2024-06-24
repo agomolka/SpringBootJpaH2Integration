@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.http.ResponseEntity;
 
-@FeignClient(name = "external-joke-api", url = "https://official-joke-api.appspot.com")
+@FeignClient(name = "external-joke-api", url = "${joke.api.base-url}")
 public interface ExternalJokeService {
     @GetMapping("/random_joke")
     ResponseEntity<JokeDTO> randomJoke();
