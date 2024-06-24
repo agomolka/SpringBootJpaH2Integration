@@ -10,4 +10,8 @@ public class JokeDTO {
     private String setup;
     private String punchline;
     private Long id;
+
+    public String fullJoke() {
+        return setup + " " + punchline;
+    }
 }

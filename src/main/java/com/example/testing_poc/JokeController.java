@@ -6,10 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
 @RestController
 public class JokeController {
     @Autowired
@@ -19,27 +15,18 @@ public class JokeController {
     private JokeRepository jokeRepository;
 
     @GetMapping(value = "/random")
-    public ResponseEntity<String> getJoke(
+    public ResponseEntity<JokeResponseDTO> getJoke(
             @RequestParam @Size(min = 3, message = "Value must have at least 3 characters") String user) {
         ResponseEntity<JokeDTO> joke = externalJokeService.randomJoke();
         JokeHistoryEntry jokeHistoryEntry = JokeHistoryEntry
                 .builder()
                 .user(user)
-                .joke(joke.toString())
+                .joke(joke.getBody().fullJoke())
                 .build();
-
-        return ResponseEntity.status(HttpStatus.OK).body("Ok");
-//        return ResponseEntity.status(HttpStatus.OK).body(joke.setup + " " + joke.punchline);
-    }
-    public JokeHistoryEntry saveJokeRequest(JokeHistoryEntry jokeHistoryEntry) {
-        return jokeRepository.save(jokeHistoryEntry);
+        JokeHistoryEntry savedEntry = jokeRepository.save(jokeHistoryEntry);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new JokeResponseDTO(savedEntry));
     }
 
-    public List<JokeHistoryEntry> getAllJokeRequests() {
-        return jokeRepository.findAll();
-    }
-
-    public Optional<JokeHistoryEntry> getJokeRequestById(Long id) {
-        return jokeRepository.findById(id);
-    }
 }
