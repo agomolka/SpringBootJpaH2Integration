@@ -91,5 +91,4 @@ public class JokeControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.['getJoke.user']").value("Value must have at least 3 characters"));
     }
-
 }
