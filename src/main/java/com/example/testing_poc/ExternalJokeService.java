@@ -10,3 +10,10 @@ public interface ExternalJokeService {
     @GetMapping("/random_joke")
     ResponseEntity<JokeDTO> randomJoke();
 }
+// Response format:
+// {
+//  "type": "general",
+//  "setup": "I had a dream that I was a muffler last night.",
+//  "punchline": "I woke up exhausted!",
+//  "id": 54
+// }

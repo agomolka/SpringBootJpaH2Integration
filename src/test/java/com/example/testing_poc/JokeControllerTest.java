@@ -82,4 +82,14 @@ public class JokeControllerTest {
         assertEquals(entry.getJoke(), "What did the Dorito farmer say to the other Dorito farmer? Cool Ranch!");
         assertEquals(entry.getUser(), "Richard");
     }
+
+    @Test
+    public void testGetJokeUsernameValidationFailed() throws Exception {
+        mockMvc.perform(get("/random")
+                        .param("user", "A")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.['getJoke.user']").value("Value must have at least 3 characters"));
+    }
+
 }
